@@ -82,20 +82,28 @@ document.addEventListener('DOMContentLoaded', () => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         const target = entry.target;
-        const raw = target.innerText;
-        const countTo = parseInt(raw.replace(/\D/g, ''), 10);
-        if (!countTo) return;
-        let count = 0;
-        const duration = 2000;
-        const increment = countTo / (duration / 16);
+        const raw = (target.dataset.statValue || target.textContent || '').trim();
         const suffix = raw.includes('+') ? '+' : '';
+        const countTo = parseInt(raw.replace(/\D/g, ''), 10);
+
+        // Kuruluş yılı vb. — animasyon yok, metin aynen kalsın
+        if (!countTo || (countTo >= 1900 && countTo <= 2100)) {
+          target.textContent = raw;
+          statsObserver.unobserve(target);
+          return;
+        }
+
+        let count = 0;
+        const duration = countTo > 10000 ? 2800 : 2000;
+        const increment = countTo / (duration / 16);
         const updateCount = () => {
           count += increment;
           if (count < countTo) {
-            target.innerText = Math.floor(count) + suffix;
+            target.textContent = Math.floor(count).toLocaleString('tr-TR') + suffix;
             requestAnimationFrame(updateCount);
           } else {
-            target.innerText = countTo + suffix;
+            target.textContent =
+              countTo >= 1000 ? countTo.toLocaleString('tr-TR') + suffix : countTo + suffix;
           }
         };
         updateCount();

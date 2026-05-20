@@ -214,7 +214,7 @@
       .map(
         (s) => `
       <div class="stat-card reveal">
-        <span class="stat-num">${esc(s.value)}</span>
+        <span class="stat-num" data-stat-value="${esc(s.value)}">${esc(s.value)}</span>
         <span class="stat-label">${esc(s.label)}</span>
       </div>`
       )
