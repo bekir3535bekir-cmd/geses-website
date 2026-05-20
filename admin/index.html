@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GESES CMS | İçerik Paneli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+</head>
+<body>
+  <div id="loginScreen" class="login-screen">
+    <form id="loginForm" class="login-card">
+      <h1>GESES CMS</h1>
+      <p>İçerik yönetim paneline giriş yapın</p>
+      <label for="loginPassword">Şifre</label>
+      <input type="password" id="loginPassword" autocomplete="current-password" required />
+      <button type="submit" class="btn btn-gold">Giriş Yap</button>
+      <p id="loginError" class="login-error" hidden></p>
+      <p class="login-hint">Varsayılan şifre: <code>geses2025</code> — sunucuyu <code>CMS_PASSWORD</code> ile özelleştirin.</p>
+    </form>
+  </div>
+
+  <div id="app" class="app" hidden>
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <strong>GESES</strong>
+        <span>İçerik Paneli</span>
+      </div>
+      <nav class="sidebar-nav" id="sidebarNav">
+        <button type="button" data-panel="general" class="active">Genel Bilgiler</button>
+        <button type="button" data-panel="media">Medya Yükleme</button>
+        <button type="button" data-panel="gallery">Galeri Sırası</button>
+        <button type="button" data-panel="hero">Ana Sayfa (Hero)</button>
+        <button type="button" data-panel="services">Hizmetler</button>
+        <button type="button" data-panel="packages">Düğün Paketleri</button>
+        <button type="button" data-panel="showcase">İmza Lezzetler</button>
+        <button type="button" data-panel="about">Hakkımızda</button>
+        <button type="button" data-panel="testimonials">Referanslar</button>
+        <button type="button" data-panel="why">Neden Biz</button>
+        <button type="button" data-panel="seo">SEO & Footer</button>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="/" target="_blank" rel="noopener" class="btn btn-ghost">Siteyi Görüntüle ↗</a>
+        <button type="button" id="logoutBtn" class="btn btn-ghost">Çıkış</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <h2 id="panelTitle">Genel Bilgiler</h2>
+        <div class="topbar-actions">
+          <span id="saveStatus" class="save-status"></span>
+          <button type="button" id="saveBtn" class="btn btn-gold">Kaydet & Yayınla</button>
+        </div>
+      </header>
+      <div class="panel-wrap" id="panelWrap"></div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

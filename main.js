@@ -1,0 +1,313 @@
+/* main.js – GESES Düğün Yemekleri | Apple-Style Scroll Logic */
+
+document.addEventListener('DOMContentLoaded', () => {
+  
+  // ---------- Navbar scroll effect ----------
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // ---------- Intersection Observer for Reveals ----------
+  const revealOptions = {
+    threshold: 0.15,
+    rootMargin: "0px 0px -50px 0px"
+  };
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      }
+    });
+  }, revealOptions);
+
+  const bindRevealElements = () => {
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .scale-up').forEach((el) => {
+      revealObserver.observe(el);
+    });
+  };
+
+  let showcaseScrollBound = false;
+
+  const bindShowcaseEffects = () => {
+    const showcaseGrid = document.getElementById('showcaseGrid');
+    const showcaseSection = document.getElementById('showcase');
+    const showcaseItems = document.querySelectorAll('.showcase-item');
+    if (!showcaseGrid || !showcaseItems.length) return;
+
+    const updateShowcaseScroll = () => {
+      if (!showcaseSection || !showcaseGrid) return;
+      const rect = showcaseSection.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      let progress = (windowHeight - rect.top) / (windowHeight + rect.height * 0.5);
+      progress = Math.min(Math.max(progress, 0), 1);
+      showcaseGrid.style.setProperty('--scroll-progress', progress);
+      showcaseSection.classList.toggle('is-inview', progress > 0.12);
+      showcaseGrid.classList.toggle('fully-visible', progress > 0.45);
+    };
+
+    const showcaseWakeObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) showcaseGrid.classList.add('is-awake');
+      });
+    }, { threshold: 0.2 });
+    showcaseWakeObserver.observe(showcaseGrid);
+
+    const isMobileView = window.matchMedia('(max-width: 768px)').matches;
+    showcaseItems.forEach((item) => {
+      const steamObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => item.classList.toggle('is-steaming', entry.isIntersecting));
+      }, {
+        threshold: isMobileView ? 0.08 : 0.35,
+        rootMargin: isMobileView ? '40px 0px 40px 0px' : '0px',
+      });
+      steamObserver.observe(item);
+    });
+
+    if (isMobileView) showcaseGrid.classList.add('steam-mobile');
+
+    if (!showcaseScrollBound) {
+      updateShowcaseScroll();
+      window.addEventListener('scroll', updateShowcaseScroll, { passive: true });
+      showcaseScrollBound = true;
+    } else {
+      updateShowcaseScroll();
+    }
+  };
+
+  const bindStatsCounter = () => {
+    const stats = document.querySelectorAll('.stat-num');
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const target = entry.target;
+        const raw = target.innerText;
+        const countTo = parseInt(raw.replace(/\D/g, ''), 10);
+        if (!countTo) return;
+        let count = 0;
+        const duration = 2000;
+        const increment = countTo / (duration / 16);
+        const suffix = raw.includes('+') ? '+' : '';
+        const updateCount = () => {
+          count += increment;
+          if (count < countTo) {
+            target.innerText = Math.floor(count) + suffix;
+            requestAnimationFrame(updateCount);
+          } else {
+            target.innerText = countTo + suffix;
+          }
+        };
+        updateCount();
+        statsObserver.unobserve(target);
+      });
+    }, { threshold: 0.5 });
+    stats.forEach((s) => statsObserver.observe(s));
+  };
+
+  const initDynamicSections = () => {
+    bindRevealElements();
+    bindShowcaseEffects();
+    bindStatsCounter();
+    initGalleryLightbox();
+  };
+
+  document.addEventListener('geses:content-ready', initDynamicSections);
+  /* İçerik yüklenmese bile hero/metin (.reveal) görünsün */
+  setTimeout(initDynamicSections, 800);
+
+  // ---------- Mobile Menu ----------
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  const navClose = document.getElementById('navClose');
+  const navOverlay = document.getElementById('navOverlay');
+
+  const setMenuOpen = (open) => {
+    if (!hamburger || !navLinks) return;
+    hamburger.classList.toggle('active', open);
+    navLinks.classList.toggle('active', open);
+    navOverlay?.classList.toggle('active', open);
+    document.body.classList.toggle('nav-open', open);
+    hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    hamburger.setAttribute('aria-label', open ? 'Menüyü kapat' : 'Menüyü aç');
+    if (navOverlay) {
+      navOverlay.setAttribute('aria-hidden', open ? 'false' : 'true');
+    }
+  };
+
+  const toggleMenu = () => setMenuOpen(!navLinks?.classList.contains('active'));
+  const closeMenu = () => setMenuOpen(false);
+
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', toggleMenu);
+    navClose?.addEventListener('click', closeMenu);
+    navOverlay?.addEventListener('click', closeMenu);
+    navLinks.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+        closeMenu();
+      }
+    });
+  }
+
+  // ---------- Teklif formu → WhatsApp ----------
+  const getWhatsAppNumber = () =>
+    (window.GESES_WHATSAPP || window.GESES_CONTENT?.contact?.whatsapp || '905366052254').replace(/\D/g, '');
+  const contactForm = document.getElementById('contactForm');
+  const formSuccess = document.querySelector('.form-success');
+  const submitBtn = document.getElementById('formSubmitBtn');
+
+  const formatEventDate = (isoDate) => {
+    if (!isoDate) return '—';
+    const parsed = new Date(`${isoDate}T12:00:00`);
+    if (Number.isNaN(parsed.getTime())) return isoDate;
+    return parsed.toLocaleDateString('tr-TR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+  };
+
+  const buildWhatsAppTeklifMessage = (data) => {
+    const lines = [
+      'Merhaba GESES, web sitenizden teklif talebi gönderiyorum.',
+      '',
+      `*Ad Soyad:* ${data.adSoyad}`,
+      `*Telefon:* ${data.telefon}`,
+      `*Etkinlik Tarihi:* ${formatEventDate(data.dugunTarihi)}`,
+      `*Tahmini Kişi:* ${data.kisiSayisi}`,
+    ];
+    if (data.sehir?.trim()) lines.push(`*Şehir / İlçe:* ${data.sehir.trim()}`);
+    if (data.mesaj?.trim()) {
+      lines.push('', '*Not:*', data.mesaj.trim());
+    }
+    lines.push('', 'Lütfen en kısa zamanda dönüşünüzü bekliyorum.');
+    return lines.join('\n');
+  };
+
+  if (contactForm && formSuccess && submitBtn) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const data = {
+        adSoyad: contactForm.adSoyad?.value?.trim() || '',
+        telefon: contactForm.telefon?.value?.trim() || '',
+        dugunTarihi: contactForm.dugunTarihi?.value || '',
+        kisiSayisi: contactForm.kisiSayisi?.value || '',
+        sehir: contactForm.sehir?.value || '',
+        mesaj: contactForm.mesaj?.value || '',
+      };
+
+      const originalText = submitBtn.innerText;
+      submitBtn.innerText = 'WhatsApp açılıyor...';
+      submitBtn.style.pointerEvents = 'none';
+      submitBtn.style.opacity = '0.7';
+
+      const waUrl = `https://wa.me/${getWhatsAppNumber()}?text=${encodeURIComponent(buildWhatsAppTeklifMessage(data))}`;
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+
+      setTimeout(() => {
+        submitBtn.innerText = originalText;
+        submitBtn.style.pointerEvents = 'auto';
+        submitBtn.style.opacity = '1';
+        formSuccess.classList.add('active');
+        contactForm.reset();
+        setTimeout(() => formSuccess.classList.remove('active'), 8000);
+      }, 400);
+    });
+  }
+
+  // ---------- Galeri lightbox (CMS sonrası yeniden bağlanır) ----------
+  let galleryUiBound = false;
+  let galleryCurrentIndex = 0;
+  let galleryTouchStartX = 0;
+
+  const initGalleryLightbox = () => {
+    const galleryGrid = document.getElementById('galleryGrid');
+    const lightbox = document.getElementById('galleryLightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCounter = document.getElementById('lightboxCounter');
+    if (!galleryGrid || !lightbox || !lightboxImg) return;
+
+    const getSlides = () =>
+      Array.from(galleryGrid.querySelectorAll('.gallery-item'))
+        .map((btn) => {
+          const img = btn.querySelector('img');
+          return {
+            src: img?.getAttribute('src') || '',
+            alt: img?.getAttribute('alt') || 'GESES galeri fotoğrafı',
+          };
+        })
+        .filter((s) => s.src);
+
+    const renderSlide = (index) => {
+      const slides = getSlides();
+      if (!slides.length) return;
+      galleryCurrentIndex = (index + slides.length) % slides.length;
+      const slide = slides[galleryCurrentIndex];
+      lightboxImg.src = slide.src;
+      lightboxImg.alt = slide.alt;
+      if (lightboxCounter) {
+        lightboxCounter.textContent = `${galleryCurrentIndex + 1} / ${slides.length}`;
+      }
+    };
+
+    const openLightbox = (index) => {
+      renderSlide(index);
+      lightbox.classList.add('is-open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('lightbox-open');
+      document.getElementById('lightboxClose')?.focus();
+    };
+
+    const closeLightbox = () => {
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('lightbox-open');
+      lightboxImg.removeAttribute('src');
+    };
+
+    const step = (delta) => renderSlide(galleryCurrentIndex + delta);
+
+    if (!galleryGrid.dataset.lbBound) {
+      galleryGrid.addEventListener('click', (e) => {
+        const btn = e.target.closest('.gallery-item');
+        if (!btn) return;
+        const idx = parseInt(btn.getAttribute('data-gallery-index'), 10);
+        openLightbox(Number.isNaN(idx) ? 0 : idx);
+      });
+      galleryGrid.dataset.lbBound = '1';
+    }
+
+    if (!galleryUiBound) {
+      document.getElementById('lightboxBackdrop')?.addEventListener('click', closeLightbox);
+      document.getElementById('lightboxClose')?.addEventListener('click', closeLightbox);
+      document.getElementById('lightboxPrev')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        step(-1);
+      });
+      document.getElementById('lightboxNext')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        step(1);
+      });
+      lightbox.addEventListener('touchstart', (e) => {
+        galleryTouchStartX = e.changedTouches[0]?.clientX ?? 0;
+      }, { passive: true });
+      lightbox.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0]?.clientX ?? 0;
+        const delta = touchEndX - galleryTouchStartX;
+        if (Math.abs(delta) < 50) return;
+        step(delta < 0 ? 1 : -1);
+      }, { passive: true });
+      document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('is-open')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') step(-1);
+        if (e.key === 'ArrowRight') step(1);
+      });
+      galleryUiBound = true;
+    }
+  };
+});

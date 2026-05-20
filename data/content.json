@@ -1,0 +1,367 @@
+{
+  "meta": {
+    "title": "GESES | Geleneksel Düğün Yemekleri",
+    "description": "Isparta, Burdur, Bucak ve çevresi için geleneksel düğün yemekleri. Meşhur Kabune pilavı, odun ateşinde kuru fasulye ve irmik helvası. 1993'ten beri dev bakır kazanlarda pişen asırlık lezzetler.",
+    "keywords": "Isparta düğün yemeği, Burdur düğün yemeği, Bucak düğün yemeği, Kabune pilavı, geleneksel düğün menüsü, toplu yemek organizasyonu, GESES düğün yemekleri, Isparta aşçı",
+    "author": "GESES Düğün Yemekleri"
+  },
+  "contact": {
+    "phoneDisplay": "0536 605 22 54",
+    "phoneTel": "+905366052254",
+    "whatsapp": "905366052254",
+    "email": "",
+    "instagram": "https://www.instagram.com/geses.organizasyon/",
+    "facebook": "https://www.facebook.com/geses.com.tr/",
+    "address": "",
+    "serviceArea": "Tüm Çevre Bölgelere Hizmet"
+  },
+  "footer": {
+    "brand": "GESES",
+    "tagline": "Düğün Yemekleri - Personel Temini ve Organizasyon",
+    "subtitle": "1993'ten Bugüne",
+    "copyright": "© 2025 GESES Düğün Yemekleri. Tüm hakları saklıdır."
+  },
+  "hero": {
+    "badge": "Geleneksel Düğün Yemeği Klasiği",
+    "badgeIcon": "✨",
+    "script": "En Özel Günleriniz İçin...",
+    "titleLine1": "Geleneksel",
+    "titleHighlight": "Düğün Mutfağı",
+    "description": "1993'ten bugüne, odun ateşinde ve dev bakır kazanlarda pişen asırlık lezzetleri, profesyonel garson kadromuz ve kusursuz servisimizle sofralarınıza taşıyoruz.",
+    "collageBadge": {
+      "icon": "🔥",
+      "title": "Odun Ateşinde",
+      "subtitle": "Geleneksel Pişim"
+    },
+    "images": {
+      "main": {
+        "src": "assets/father-son.png",
+        "alt": "Bakır Kazanda Düğün Yemeği Pişiren Aşçılar"
+      },
+      "sub1": {
+        "src": "assets/kabune.png",
+        "alt": "Meşhur Isparta Kabune Pilavı"
+      },
+      "sub2": {
+        "src": "assets/corba.png",
+        "alt": "Geleneksel Düğün Çorbası"
+      }
+    },
+    "trust": [
+      {
+        "value": "1993",
+        "label": "Kuruluş"
+      },
+      {
+        "value": "5000+",
+        "label": "Başarılı Düğün"
+      },
+      {
+        "value": "%100",
+        "label": "Müşteri Memnuniyeti"
+      }
+    ]
+  },
+  "services": [
+    {
+      "id": "s1",
+      "icon": "💍",
+      "title": "Düğün Yemekleri",
+      "text": "Geleneksel menümüzle yüzlerce kişilik dev düğün organizasyonlarınız için eksiksiz yemek hizmeti."
+    },
+    {
+      "id": "s2",
+      "icon": "🕌",
+      "title": "Özel ve Güzel Günler",
+      "text": "Nişan, kına, mevlid, sünnet ve diğer toplu yemek organizasyonlarınız için özel menü seçenekleri."
+    },
+    {
+      "id": "s3",
+      "icon": "🕴️",
+      "title": "Garson Temini",
+      "text": "Özel etkinlikleriniz ve düğün davetleriniz için deneyimli ve güler yüzlü profesyonel servis kadrosu."
+    },
+    {
+      "id": "s4",
+      "icon": "🔥",
+      "title": "Bakır Kazanlar",
+      "text": "1993'ten beri geleneksel yöntemlerle, odun ateşinde ve dev bakır kazanlarda eşsiz pişim lezzeti."
+    }
+  ],
+  "packages": [],
+  "stats": [
+    {
+      "value": "1993",
+      "label": "Kuruluş Yılı"
+    },
+    {
+      "value": "5000+",
+      "label": "Başarılı Özel ve Güzel Gün Yemeği"
+    },
+    {
+      "value": "100000+",
+      "label": "Mutlu Misafir"
+    },
+    {
+      "value": "4",
+      "label": "Geleneksel İmza Lezzet"
+    }
+  ],
+  "about": {
+    "tag": "Hakkımızda",
+    "title": "Bir Ailenin",
+    "titleEm": "Lezzet Geleneği",
+    "body": "1993'ten bu yana babadan oğula aktarılan bir ustalıkla, odun ateşinde dev bakır kazanlarda geleneksel düğün yemekleri pişiriyoruz. Her tabak, yılların birikimi ve yakınınıza duyulan saygının yansımasıdır.",
+    "badgeYear": "1993",
+    "badgeText": "'ten bugüne",
+    "image": {
+      "src": "assets/hakkimizda-kazan.png",
+      "alt": "Bakır kazanda odun ateşinde geleneksel düğün yemeği pişiren usta aşçı",
+      "width": 414,
+      "height": 577
+    },
+    "features": [
+      {
+        "icon": "🌿",
+        "text": "Doğal Malzeme"
+      },
+      {
+        "icon": "🔥",
+        "text": "Geleneksel Pişirme"
+      },
+      {
+        "icon": "🤝",
+        "text": "Güvenilir Hizmet"
+      },
+      {
+        "icon": "🏆",
+        "text": "Binlerce Referans"
+      }
+    ]
+  },
+  "showcase": {
+    "tag": "İmza Lezzetlerimiz",
+    "title": "Meşhur Isparta",
+    "titleEm": "Düğün Sofrası",
+    "description": "Odun ateşinin isli kokusuyla harmanlanmış, asırlık tariflerle pişen sıcacık lezzetler. Tam kıvamında, dumanı üstünde!",
+    "items": [
+      {
+        "id": "sh1",
+        "image": "assets/corba.png",
+        "imageAlt": "Düğün Çorbası",
+        "title": "Düğün Çorbası",
+        "text": "Odun ateşinde saatlerce demlenen, kemik suyu ve yoğurtla hazırlanan iştah açıcı bir başlangıç."
+      },
+      {
+        "id": "sh2",
+        "image": "assets/kabune.png",
+        "imageAlt": "Kabune Pilavı",
+        "title": "Isparta Kabunesi",
+        "text": "Özel harcı ve bakır kazanların farkıyla pişen, her düğünün vazgeçilmez başrol oyuncusu."
+      },
+      {
+        "id": "sh3",
+        "image": "assets/fasulye.png",
+        "imageAlt": "Kuru Fasulye",
+        "title": "Odun Ateşi Fasulye",
+        "text": "Etiyle ve kıvamıyla tam tadında, geleneksel yöntemlerle pişen o meşhur lezzet."
+      },
+      {
+        "id": "sh4",
+        "image": "assets/irmik.png",
+        "imageAlt": "İrmik Helvası",
+        "title": "Sıcak İrmik Helvası",
+        "text": "Bol tereyağlı ve tam kıvamında, düğün sofralarının en tatlı finali."
+      }
+    ]
+  },
+  "gallery": {
+    "tag": "Tarihçemiz",
+    "title": "Dünden",
+    "titleEm": "Bugüne",
+    "description": "1993'ten bugüne karelerimizden seçmeler. Fotoğrafa dokunarak büyütüp tüm galeriyi gezebilirsiniz.",
+    "items": [
+      {
+        "id": "g1",
+        "src": "assets/gallery/gal-01.jpg",
+        "alt": "GESES düğün yemekleri — fotoğraf 1"
+      },
+      {
+        "id": "g2",
+        "src": "assets/gallery/gal-02.jpg",
+        "alt": "GESES düğün yemekleri — fotoğraf 2"
+      },
+      {
+        "id": "g3",
+        "src": "assets/gallery/gal-03.jpg",
+        "alt": "GESES düğün yemekleri — fotoğraf 3"
+      },
+      {
+        "id": "g4",
+        "src": "assets/gallery/gal-04.jpg",
+        "alt": "GESES düğün yemekleri — fotoğraf 4"
+      },
+      {
+        "id": "g5",
+        "src": "assets/gallery/gal-05.jpg",
+        "alt": "GESES düğün yemekleri — fotoğraf 5"
+      },
+      {
+        "id": "g6",
+        "src": "assets/gallery/gal-06.jpg",
+        "alt": "GESES düğün yemekleri — fotoğraf 6"
+      },
+      {
+        "id": "g7",
+        "src": "assets/gallery/gal-07.jpg",
+        "alt": "GESES düğün yemekleri — fotoğraf 7"
+      },
+      {
+        "id": "g8",
+        "src": "assets/gallery/gal-08.jpg",
+        "alt": "GESES düğün yemekleri — fotoğraf 8"
+      },
+      {
+        "id": "g9",
+        "src": "assets/gallery/gal-09.jpg",
+        "alt": "GESES düğün yemekleri — fotoğraf 9"
+      },
+      {
+        "id": "g10",
+        "src": "assets/gallery/gal-10.jpg",
+        "alt": "GESES düğün yemekleri — fotoğraf 10"
+      },
+      {
+        "id": "g11",
+        "src": "assets/gallery/gal-11.jpg",
+        "alt": "GESES düğün yemekleri — fotoğraf 11"
+      },
+      {
+        "id": "g12",
+        "src": "assets/gallery/gal-12.jpg",
+        "alt": "GESES düğün yemekleri — fotoğraf 12"
+      },
+      {
+        "id": "g13",
+        "src": "assets/gallery/gal-13.jpg",
+        "alt": "GESES düğün yemekleri — fotoğraf 13"
+      },
+      {
+        "id": "g14",
+        "src": "assets/gallery/gal-14.jpg",
+        "alt": "GESES düğün yemekleri — fotoğraf 14"
+      },
+      {
+        "id": "g15",
+        "src": "assets/gallery/gal-15.jpg",
+        "alt": "GESES düğün yemekleri — fotoğraf 15"
+      },
+      {
+        "id": "g16",
+        "src": "assets/gallery/gal-16.jpg",
+        "alt": "GESES düğün yemekleri — fotoğraf 16"
+      },
+      {
+        "id": "g17",
+        "src": "assets/gallery/gal-17.jpg",
+        "alt": "GESES düğün yemekleri — fotoğraf 17"
+      },
+      {
+        "id": "g18",
+        "src": "assets/gallery/gal-18.jpg",
+        "alt": "GESES düğün yemekleri — fotoğraf 18"
+      }
+    ]
+  },
+  "testimonials": {
+    "tag": "Referanslar",
+    "title": "Mutlu",
+    "titleEm": "Aileler",
+    "items": [
+      {
+        "id": "t1",
+        "stars": 5,
+        "text": "Kızımızın düğünü için 600 kişilik yemek hizmeti aldık. Kabune pilavı ve helva tek kelimeyle efsaneydi. Misafirlerimiz hâlâ lezzetinden bahsediyor. Emeğinize sağlık!",
+        "name": "Fatma Demir",
+        "initials": "FD"
+      },
+      {
+        "id": "t2",
+        "stars": 5,
+        "text": "Baba-oğul ve profesyonel garson kadrosu düğün günümüzde harika iş çıkardılar . 800 kişilik dev organizasyonu sıfır hata ile tamamladılar. Bakır kazan lezzeti bambaşka.",
+        "name": "Mustafa Öztürk",
+        "initials": "MÖ"
+      },
+      {
+        "id": "t3",
+        "stars": 5,
+        "text": "Düğün çorbasından helvasına kadar her şey sıcacıktı. Garson arkadaşlar çok kibar ve hızlıydılar. 1993'ten beri gelen tecrübe kendisini her detayda hissettiriyor.",
+        "name": "Zeynep Karahan",
+        "initials": "ZK"
+      },
+      {
+        "id": "t4",
+        "stars": 5,
+        "text": "Oğlumuzun sünnet merasimi için anlaştık. Kuru fasulye odun ateşinde o kadar güzel pişmişti ki lokum gibiydi. Hijyen ve düzen konusundaki hassasiyetleri takdire şayan.",
+        "name": "Ahmet Yılmaz",
+        "initials": "AY"
+      },
+      {
+        "id": "t5",
+        "stars": 5,
+        "text": "Düğün telaşında en rahat ettiğimiz konu yemekler oldu. Menüdeki her lezzet tam kıvamındaydı. Geleneksel tatları bu denli aslına uygun yapan başka bir yer yok.",
+        "name": "Emine Şahin",
+        "initials": "EŞ"
+      },
+      {
+        "id": "t6",
+        "stars": 5,
+        "text": "Sadece düğün yemeği değil, garson temini konusunda da kusursuz bir hizmet aldık. 500 kişilik davetlimizin tamamı çok memnun ayrıldı. Herkese gönül rahatlığıyla tavsiye ederim.",
+        "name": "Mehmet Can",
+        "initials": "MC"
+      }
+    ]
+  },
+  "whyUs": {
+    "tag": "Neden Biz?",
+    "title": "Farkımız",
+    "titleEm": "Kalbimizde",
+    "image": {
+      "src": "assets/neden-biz-menuler.png",
+      "alt": "Geleneksel Türk düğün yemekleri: yayla çorbası, etli kuru fasulye, etli nohutlu pilav ve irmik helvası"
+    },
+    "quote": "Her tabak, bir anının başlangıcıdır.",
+    "items": [
+      {
+        "id": "w1",
+        "title": "Aile Geleneği",
+        "text": "1993'ten bu yana kesintisiz hizmet. Her nesle aktarılan el lezzeti."
+      },
+      {
+        "id": "w2",
+        "title": "Hijyen & Kalite",
+        "text": "Her pişirme sürecinde en yüksek hijyen standartları uygulanır."
+      },
+      {
+        "id": "w3",
+        "title": "Zamanında Teslimat",
+        "text": "Düğününüzün programına göre önceden planlama yapıyoruz."
+      },
+      {
+        "id": "w4",
+        "title": "Kişiye Özel Menü",
+        "text": "Her ailenin isteğine göre menü düzenlemesi yapıyoruz."
+      }
+    ]
+  },
+  "contactSection": {
+    "tag": "İletişim",
+    "title": "Teklif",
+    "titleEm": "İsteyin",
+    "description": "Formu doldurup gönderin; bilgileriniz WhatsApp'ta hazır mesaj olarak açılır. Tek tıkla göndermeniz yeterli."
+  },
+  "logo": {
+    "src": "assets/logo-cropped.png",
+    "alt": "GESES Organizasyon"
+  }
+}
