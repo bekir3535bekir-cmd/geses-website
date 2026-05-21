@@ -264,7 +264,7 @@
     grid.innerHTML = (sh.items || [])
       .map(
         (item) => `
-      <div class="showcase-item reveal">
+      <div class="showcase-item">
         <div class="showcase-img-wrap">
           <img src="${esc(item.image)}" alt="${esc(item.imageAlt)}" class="showcase-img" />
           ${steamHtml}

@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---------- Intersection Observer for Reveals ----------
   const revealOptions = {
-    threshold: 0.12,
-    rootMargin: '0px 0px -6% 0px',
+    threshold: 0.1,
+    rootMargin: '0px 0px -4% 0px',
   };
 
   const revealObserved = new WeakSet();
@@ -33,89 +33,103 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const bindSectionFlows = () => {
-    const sections = document.querySelectorAll(
-      'section.hero-split, section.services-brief, section.stats-section, section.about, section.showcase, section.gallery, section.testimonials, section.why-us, section.contact'
-    );
-
-    const sectionObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('section-visible');
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -4% 0px' }
-    );
-
-    sections.forEach((section) => {
-      section.classList.add('page-section');
-      sectionObserver.observe(section);
-
-      section.querySelectorAll('.section-header').forEach((header) => {
-        header.classList.add('flow-header');
-      });
-
-      section.querySelectorAll('.stagger-1, .stagger-2, .stagger-3, .stagger-4, .stagger-5').forEach((el) => {
-        el.classList.add('reveal');
-      });
-
-      if (section.classList.contains('contact')) {
-        const form = section.querySelector('.contact-form');
-        const info = section.querySelector('.contact-info');
-        form?.classList.add('reveal-left');
-        info?.classList.add('reveal-right');
-      }
+    document.querySelectorAll('.stagger-1, .stagger-2, .stagger-3, .stagger-4, .stagger-5').forEach((el) => {
+      el.classList.add('reveal');
     });
-
     bindRevealElements();
   };
 
-  let showcaseScrollBound = false;
+  let showcasePresentationBound = false;
 
   const bindShowcaseEffects = () => {
     const showcaseGrid = document.getElementById('showcaseGrid');
     const showcaseSection = document.getElementById('showcase');
-    const showcaseItems = document.querySelectorAll('.showcase-item');
-    if (!showcaseGrid || !showcaseItems.length) return;
+    const showcaseHand = document.getElementById('showcaseHand');
+    if (!showcaseGrid || !showcaseSection) return;
 
-    const updateShowcaseScroll = () => {
-      if (!showcaseSection || !showcaseGrid) return;
-      const rect = showcaseSection.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      let progress = (windowHeight - rect.top) / (windowHeight + rect.height * 0.5);
-      progress = Math.min(Math.max(progress, 0), 1);
-      showcaseGrid.style.setProperty('--scroll-progress', progress);
-      showcaseSection.classList.toggle('is-inview', progress > 0.12);
-      showcaseGrid.classList.toggle('fully-visible', progress > 0.45);
+    const getItems = () => [...showcaseGrid.querySelectorAll('.showcase-item')];
+
+    const resetPresentation = () => {
+      showcaseGrid.classList.remove('is-presenting', 'is-finished', 'is-awake');
+      showcaseSection.classList.remove('is-presenting');
+      getItems().forEach((item) => item.classList.remove('is-presented', 'is-current'));
+      showcaseGrid.style.removeProperty('--present-step');
+      if (showcaseHand) showcaseHand.style.removeProperty('--hand-x');
     };
 
-    const showcaseWakeObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) showcaseGrid.classList.add('is-awake');
+    const setPresentationStep = (index, total) => {
+      const items = getItems();
+      if (!items.length) return;
+      const step = Math.min(Math.max(index, 0), total - 1);
+      showcaseGrid.style.setProperty('--present-step', String(step));
+      showcaseGrid.dataset.presentStep = String(step);
+      if (showcaseHand) showcaseHand.style.setProperty('--present-step', String(step));
+      items.forEach((item, i) => {
+        item.classList.toggle('is-presented', i <= step);
+        item.classList.toggle('is-current', i === step);
+        item.classList.toggle('is-steaming', i <= step);
       });
-    }, { threshold: 0.2 });
-    showcaseWakeObserver.observe(showcaseGrid);
+      if (showcaseHand && total > 1) {
+        const pct = (step / (total - 1)) * 100;
+        showcaseHand.style.setProperty('--hand-x', `${pct}%`);
+      }
+    };
+
+    const runPresentation = () => {
+      const items = getItems();
+      if (!items.length) return;
+
+      resetPresentation();
+      showcaseGrid.classList.add('is-presenting', 'is-awake');
+      showcaseSection.classList.add('is-presenting');
+
+      const total = items.length;
+      const stepMs = window.matchMedia('(max-width: 768px)').matches ? 520 : 620;
+      let step = 0;
+      setPresentationStep(step, total);
+
+      const tick = () => {
+        step += 1;
+        if (step >= total) {
+          showcaseGrid.classList.add('is-finished');
+          items.forEach((item) => item.classList.remove('is-current'));
+          return;
+        }
+        setPresentationStep(step, total);
+        window.setTimeout(tick, stepMs);
+      };
+      window.setTimeout(tick, stepMs);
+    };
 
     const isMobileView = window.matchMedia('(max-width: 768px)').matches;
-    showcaseItems.forEach((item) => {
+    getItems().forEach((item) => {
+      if (!isMobileView) return;
       const steamObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => item.classList.toggle('is-steaming', entry.isIntersecting));
-      }, {
-        threshold: isMobileView ? 0.08 : 0.35,
-        rootMargin: isMobileView ? '40px 0px 40px 0px' : '0px',
-      });
+        entries.forEach((entry) => {
+          if (!showcaseGrid.classList.contains('is-finished')) return;
+          item.classList.toggle('is-steaming', entry.isIntersecting);
+        });
+      }, { threshold: 0.2, rootMargin: '20px 0px' });
       steamObserver.observe(item);
     });
 
     if (isMobileView) showcaseGrid.classList.add('steam-mobile');
 
-    if (!showcaseScrollBound) {
-      updateShowcaseScroll();
-      window.addEventListener('scroll', updateShowcaseScroll, { passive: true });
-      showcaseScrollBound = true;
-    } else {
-      updateShowcaseScroll();
+    if (!showcasePresentationBound) {
+      const presentObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              runPresentation();
+            } else {
+              resetPresentation();
+            }
+          });
+        },
+        { threshold: 0.28 }
+      );
+      presentObserver.observe(showcaseSection);
+      showcasePresentationBound = true;
     }
   };
 
