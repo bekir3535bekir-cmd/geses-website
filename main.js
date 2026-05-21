@@ -10,12 +10,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---------- Intersection Observer for Reveals ----------
   const revealOptions = {
-    threshold: 0.15,
-    rootMargin: "0px 0px -50px 0px"
+    threshold: 0.12,
+    rootMargin: '0px 0px -6% 0px',
   };
 
+  const revealObserved = new WeakSet();
+
   const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('active');
       }
@@ -24,8 +26,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const bindRevealElements = () => {
     document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .scale-up').forEach((el) => {
+      if (revealObserved.has(el)) return;
+      revealObserved.add(el);
       revealObserver.observe(el);
     });
+  };
+
+  const bindSectionFlows = () => {
+    const sections = document.querySelectorAll(
+      'section.hero-split, section.services-brief, section.stats-section, section.about, section.showcase, section.gallery, section.testimonials, section.why-us, section.contact'
+    );
+
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('section-visible');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -4% 0px' }
+    );
+
+    sections.forEach((section) => {
+      section.classList.add('page-section');
+      sectionObserver.observe(section);
+
+      section.querySelectorAll('.section-header').forEach((header) => {
+        header.classList.add('flow-header');
+      });
+
+      section.querySelectorAll('.stagger-1, .stagger-2, .stagger-3, .stagger-4, .stagger-5').forEach((el) => {
+        el.classList.add('reveal');
+      });
+
+      if (section.classList.contains('contact')) {
+        const form = section.querySelector('.contact-form');
+        const info = section.querySelector('.contact-info');
+        form?.classList.add('reveal-left');
+        info?.classList.add('reveal-right');
+      }
+    });
+
+    bindRevealElements();
   };
 
   let showcaseScrollBound = false;
@@ -114,12 +157,13 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const initDynamicSections = () => {
-    bindRevealElements();
+    bindSectionFlows();
     bindShowcaseEffects();
     bindStatsCounter();
     initGalleryLightbox();
   };
 
+  bindSectionFlows();
   document.addEventListener('geses:content-ready', initDynamicSections);
   /* İçerik yüklenmese bile hero/metin (.reveal) görünsün */
   setTimeout(initDynamicSections, 800);
