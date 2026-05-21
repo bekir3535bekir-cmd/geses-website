@@ -311,6 +311,11 @@ section[id] {
   animation: top-phone-blink 2s ease-in-out infinite;
 }
 
+/* Mobil: kaydırınca altta sabit arama */
+.mobile-phone-dock {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .top-phone-link,
   .top-phone-number,
@@ -1219,29 +1224,40 @@ section[id] {
   }
 
   .showcase-hand {
-    left: 8% !important;
+    left: 4% !important;
     bottom: auto;
-    top: calc(12% + var(--present-step, 0) * 22%);
-    width: 64px;
-    transform: translate(-20%, -50%) rotate(-12deg);
+    width: 58px;
+    opacity: 0;
+    transform: translate(-10%, -50%) rotate(-14deg);
     transition:
-      top 0.52s cubic-bezier(0.22, 1, 0.36, 1),
-      opacity 0.35s ease;
+      top 0.48s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.3s ease,
+      transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .showcase-grid.is-presenting .showcase-hand,
-  .showcase-grid.is-finished .showcase-hand {
-    transform: translate(-20%, -50%) rotate(-10deg);
+  .showcase-grid.is-mobile-flow.is-presenting .showcase-hand {
+    opacity: 1;
+    transform: translate(-10%, -50%) rotate(-11deg);
   }
 
   .showcase-item {
-    opacity: 0.4;
-    transform: translateX(-28px) scale(0.94);
+    opacity: 0.72;
+    transform: scale(0.97);
   }
 
-  .showcase-grid:not(.is-presenting):not(.is-finished) .showcase-item {
-    opacity: 0.85;
+  .showcase-grid.is-mobile-flow:not(.is-presenting) .showcase-item {
+    opacity: 0.88;
     transform: none;
+  }
+
+  .showcase-grid.is-mobile-flow .showcase-item.is-presented {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .showcase-grid.is-mobile-flow .showcase-item.is-current {
+    transform: scale(1.03) translateY(-6px);
+    box-shadow: 0 18px 40px rgba(184, 142, 47, 0.16);
   }
 
   .showcase-steam {
@@ -2193,10 +2209,65 @@ body.lightbox-open {
     font-size: 0.78rem;
     padding: 5px 12px 5px 6px;
     gap: 8px;
+    transition: opacity 0.35s ease, visibility 0.35s ease, max-height 0.35s ease, margin 0.35s ease;
+    max-height: 48px;
+  }
+  body.phone-dock-active .top-bar .top-phone-link {
+    opacity: 0;
+    visibility: hidden;
+    max-height: 0;
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+    pointer-events: none;
   }
   .top-phone-icon {
     width: 26px;
     height: 26px;
+  }
+
+  .mobile-phone-dock {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    position: fixed;
+    left: 50%;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    z-index: 9995;
+    padding: 10px 20px 10px 12px;
+    border-radius: 999px;
+    background: var(--primary-dark);
+    border: 1px solid rgba(230, 197, 132, 0.45);
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 700;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.28);
+    transform: translate(-50%, 130%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.35s ease,
+      visibility 0.35s ease;
+    animation: top-phone-glow 2s ease-in-out infinite;
+  }
+
+  body.phone-dock-active .mobile-phone-dock {
+    transform: translate(-50%, 0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  body.phone-dock-active {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .mobile-phone-dock .top-phone-number {
+    animation: top-phone-blink 2s ease-in-out infinite;
   }
   .top-social {
     display: flex;

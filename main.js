@@ -4,9 +4,21 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // ---------- Navbar scroll effect ----------
   const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
-  });
+  const mobilePhoneMq = window.matchMedia('(max-width: 768px)');
+
+  const updateScrollUi = () => {
+    const y = window.scrollY;
+    navbar.classList.toggle('scrolled', y > 50);
+    if (mobilePhoneMq.matches) {
+      document.body.classList.toggle('phone-dock-active', y > 40);
+    } else {
+      document.body.classList.remove('phone-dock-active');
+    }
+  };
+
+  window.addEventListener('scroll', updateScrollUi, { passive: true });
+  mobilePhoneMq.addEventListener('change', updateScrollUi);
+  updateScrollUi();
 
   // ---------- Intersection Observer for Reveals ----------
   const revealOptions = {
@@ -39,22 +51,30 @@ document.addEventListener('DOMContentLoaded', () => {
     bindRevealElements();
   };
 
-  let showcasePresentationBound = false;
+  let showcaseObservers = [];
 
   const bindShowcaseEffects = () => {
     const showcaseGrid = document.getElementById('showcaseGrid');
     const showcaseSection = document.getElementById('showcase');
     const showcaseHand = document.getElementById('showcaseHand');
+    const showcaseStage = document.getElementById('showcaseStage');
     if (!showcaseGrid || !showcaseSection) return;
 
+    showcaseObservers.forEach((o) => o.disconnect());
+    showcaseObservers = [];
+
+    const isMobileView = window.matchMedia('(max-width: 768px)').matches;
     const getItems = () => [...showcaseGrid.querySelectorAll('.showcase-item')];
 
     const resetPresentation = () => {
-      showcaseGrid.classList.remove('is-presenting', 'is-finished', 'is-awake');
+      showcaseGrid.classList.remove('is-presenting', 'is-finished', 'is-awake', 'is-mobile-flow');
       showcaseSection.classList.remove('is-presenting');
-      getItems().forEach((item) => item.classList.remove('is-presented', 'is-current'));
+      getItems().forEach((item) => item.classList.remove('is-presented', 'is-current', 'is-steaming'));
       showcaseGrid.style.removeProperty('--present-step');
-      if (showcaseHand) showcaseHand.style.removeProperty('--hand-x');
+      if (showcaseHand) {
+        showcaseHand.style.removeProperty('--hand-x');
+        showcaseHand.style.removeProperty('top');
+      }
     };
 
     const setPresentationStep = (index, total) => {
@@ -64,18 +84,26 @@ document.addEventListener('DOMContentLoaded', () => {
       showcaseGrid.style.setProperty('--present-step', String(step));
       showcaseGrid.dataset.presentStep = String(step);
       if (showcaseHand) showcaseHand.style.setProperty('--present-step', String(step));
+
       items.forEach((item, i) => {
         item.classList.toggle('is-presented', i <= step);
         item.classList.toggle('is-current', i === step);
-        item.classList.toggle('is-steaming', i <= step);
+        item.classList.toggle('is-steaming', i === step);
       });
-      if (showcaseHand && total > 1) {
+
+      if (isMobileView && showcaseHand && items[step] && showcaseStage) {
+        const item = items[step];
+        const top = item.offsetTop + item.offsetHeight * 0.3;
+        showcaseHand.style.top = `${top}px`;
+        showcaseHand.style.removeProperty('--hand-x');
+      } else if (showcaseHand && total > 1) {
+        showcaseHand.style.removeProperty('top');
         const pct = (step / (total - 1)) * 100;
         showcaseHand.style.setProperty('--hand-x', `${pct}%`);
       }
     };
 
-    const runPresentation = () => {
+    const runDesktopPresentation = () => {
       const items = getItems();
       if (!items.length) return;
 
@@ -84,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showcaseSection.classList.add('is-presenting');
 
       const total = items.length;
-      const stepMs = window.matchMedia('(max-width: 768px)').matches ? 520 : 620;
+      const stepMs = 620;
       let step = 0;
       setPresentationStep(step, total);
 
@@ -93,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (step >= total) {
           showcaseGrid.classList.add('is-finished');
           items.forEach((item) => item.classList.remove('is-current'));
+          items.forEach((item) => item.classList.add('is-steaming'));
           return;
         }
         setPresentationStep(step, total);
@@ -101,26 +130,52 @@ document.addEventListener('DOMContentLoaded', () => {
       window.setTimeout(tick, stepMs);
     };
 
-    const isMobileView = window.matchMedia('(max-width: 768px)').matches;
-    getItems().forEach((item) => {
-      if (!isMobileView) return;
-      const steamObserver = new IntersectionObserver((entries) => {
+    if (isMobileView) {
+      showcaseGrid.classList.add('steam-mobile', 'is-mobile-flow');
+
+      const pickActiveItem = (entries) => {
+        let best = null;
+        let bestRatio = 0;
         entries.forEach((entry) => {
-          if (!showcaseGrid.classList.contains('is-finished')) return;
-          item.classList.toggle('is-steaming', entry.isIntersecting);
+          if (entry.isIntersecting && entry.intersectionRatio >= bestRatio) {
+            bestRatio = entry.intersectionRatio;
+            best = entry.target;
+          }
         });
-      }, { threshold: 0.2, rootMargin: '20px 0px' });
-      steamObserver.observe(item);
-    });
+        if (!best) return;
+        const items = getItems();
+        const index = items.indexOf(best);
+        if (index < 0) return;
+        showcaseGrid.classList.add('is-presenting', 'is-awake');
+        showcaseSection.classList.add('is-presenting');
+        setPresentationStep(index, items.length);
+      };
 
-    if (isMobileView) showcaseGrid.classList.add('steam-mobile');
+      const itemObserver = new IntersectionObserver(pickActiveItem, {
+        threshold: [0.35, 0.5, 0.65, 0.85],
+        rootMargin: '-32% 0px -32% 0px',
+      });
 
-    if (!showcasePresentationBound) {
+      getItems().forEach((item) => itemObserver.observe(item));
+      showcaseObservers.push(itemObserver);
+
+      const sectionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) resetPresentation();
+          });
+        },
+        { threshold: 0.05 }
+      );
+      sectionObserver.observe(showcaseSection);
+      showcaseObservers.push(sectionObserver);
+    } else {
+      showcaseGrid.classList.remove('is-mobile-flow');
       const presentObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              runPresentation();
+              runDesktopPresentation();
             } else {
               resetPresentation();
             }
@@ -129,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { threshold: 0.28 }
       );
       presentObserver.observe(showcaseSection);
-      showcasePresentationBound = true;
+      showcaseObservers.push(presentObserver);
     }
   };
 
