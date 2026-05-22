@@ -58,6 +58,11 @@
         "src": "assets/fasulye.png",
         "alt": "Odun ateşinde kuru fasulye",
         "label": "Kuru Fasulye"
+      },
+      "sub4": {
+        "src": "assets/irmik.png",
+        "alt": "Sıcak irmik helvası — düğün sofrası",
+        "label": "İrmik Helvası"
       }
     },
     "trust": [
