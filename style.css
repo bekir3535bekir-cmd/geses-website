@@ -531,7 +531,7 @@ section[id] {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+  grid-template-columns: minmax(0, 1.05fr) minmax(300px, 1fr);
   gap: 40px;
   align-items: end;
   padding: 140px 0 36px;
@@ -578,7 +578,8 @@ section[id] {
   color: var(--white);
 }
 
-.hero-title span {
+.hero-title span,
+.hero-title-accent {
   background: linear-gradient(135deg, #f5d78e 0%, #d4a843 55%, #f0e6c8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -679,8 +680,8 @@ section[id] {
 
 .hero-dishes {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
 }
 
 .hero-dish {
@@ -2604,10 +2605,22 @@ body.lightbox-open {
     margin-left: 0;
   }
   .hero-dishes {
+    display: flex;
     gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+    scroll-snap-type: x proximity;
   }
   .hero-dish {
-    aspect-ratio: 1;
+    flex: 0 0 26%;
+    min-width: 88px;
+    aspect-ratio: 4 / 5;
+    scroll-snap-align: start;
+  }
+  .hero-dish-label {
+    font-size: 0.58rem;
+    padding: 8px 4px;
   }
   .hero-cinema-bar .hero-trust {
     gap: 16px;

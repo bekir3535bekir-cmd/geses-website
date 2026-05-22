@@ -115,7 +115,11 @@
     setText('.hero-script', h.script);
     const title = document.querySelector('.hero-title');
     if (title) {
-      title.innerHTML = `${esc(h.titleLine1 || '')}<br /><span>${esc(h.titleHighlight || '')}</span>`;
+      if (h.titleLine2) {
+        title.innerHTML = `${esc(h.titleLine1 || '')}<br /><span class="hero-title-accent">${esc(h.titleHighlight || '')}</span> ${esc(h.titleLine2)}`;
+      } else {
+        title.innerHTML = `${esc(h.titleLine1 || '')}<br /><span>${esc(h.titleHighlight || '')}</span>`;
+      }
     }
     setText('.hero-desc', h.description);
 
@@ -129,6 +133,7 @@
       ['.hero-dish-1', imgs.sub1],
       ['.hero-dish-2', imgs.sub2],
       ['.hero-dish-3', imgs.sub3],
+      ['.hero-dish-4', imgs.sub4],
     ];
     dishMap.forEach(([sel, data]) => {
       const img = document.querySelector(`${sel} img`);
