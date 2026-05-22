@@ -181,8 +181,10 @@
         <p style="color:var(--muted);font-size:.85rem">Ana kolaj ve küçük fotoğraflar</p>
         ${field('Ana foto', `<input data-c="hero.images.main.src" value="${h.images?.main?.src || ''}" />`)}
         ${field('Ana alt metin', `<input data-c="hero.images.main.alt" value="${h.images?.main?.alt || ''}" />`)}
-        ${field('Küçük 1', `<input data-c="hero.images.sub1.src" value="${h.images?.sub1?.src || ''}" />`)}
-        ${field('Küçük 2', `<input data-c="hero.images.sub2.src" value="${h.images?.sub2?.src || ''}" />`)}
+        ${field('Menü 1 (Kabune)', `<input data-c="hero.images.sub1.src" value="${h.images?.sub1?.src || ''}" />`)}
+        ${field('Menü 2 (Çorba)', `<input data-c="hero.images.sub2.src" value="${h.images?.sub2?.src || ''}" />`)}
+        ${field('Menü 3 (Fasulye)', `<input data-c="hero.images.sub3.src" value="${h.images?.sub3?.src || ''}" />`)}
+        ${field('Menü 4 (Helva)', `<input data-c="hero.images.sub4.src" value="${h.images?.sub4?.src || ''}" />`)}
       </div>
       <div class="card"><h3>Güven şeridi</h3>
         <div id="trustList" class="sort-list">
