@@ -17,34 +17,47 @@
   },
   "footer": {
     "brand": "GESES",
-    "tagline": "Düğün Yemekleri - Personel Temini ve Organizasyon",
+    "tagline": "Geleneksel Düğün Yemekleri · Isparta ve Çevresi",
     "subtitle": "1993'ten Bugüne",
     "copyright": "© 2025 GESES Düğün Yemekleri. Tüm hakları saklıdır."
   },
   "hero": {
     "badge": "Geleneksel Düğün Yemeği Klasiği",
     "badgeIcon": "✨",
-    "script": "En Özel Günleriniz İçin...",
+    "script": "En Özel Günleriniz İçin…",
     "titleLine1": "Geleneksel",
-    "titleHighlight": "Düğün Mutfağı",
+    "titleHighlight": "Düğün",
+    "titleLine2": "Mutfağı",
     "description": "1993'ten bugüne, odun ateşinde ve dev bakır kazanlarda pişen asırlık lezzetleri, profesyonel garson kadromuz ve kusursuz servisimizle sofralarınıza taşıyoruz.",
-    "collageBadge": {
+    "pills": [
+      "Bakır kazanda pişim",
+      "Meşhur kabune pilavı",
+      "Toplu düğün menüsü"
+    ],
+    "foodBadge": {
       "icon": "🔥",
       "title": "Odun Ateşinde",
       "subtitle": "Geleneksel Pişim"
     },
     "images": {
       "main": {
-        "src": "assets/father-son.png",
-        "alt": "Bakır Kazanda Düğün Yemeği Pişiren Aşçılar"
+        "src": "assets/hakkimizda-kazan.png",
+        "alt": "Odun ateşinde bakır kazanda geleneksel düğün yemeği"
       },
       "sub1": {
         "src": "assets/kabune.png",
-        "alt": "Meşhur Isparta Kabune Pilavı"
+        "alt": "Meşhur Isparta kabune pilavı",
+        "label": "Kabune Pilavı"
       },
       "sub2": {
         "src": "assets/corba.png",
-        "alt": "Geleneksel Düğün Çorbası"
+        "alt": "Geleneksel düğün çorbası",
+        "label": "Düğün Çorbası"
+      },
+      "sub3": {
+        "src": "assets/fasulye.png",
+        "alt": "Odun ateşinde kuru fasulye",
+        "label": "Kuru Fasulye"
       }
     },
     "trust": [
@@ -54,11 +67,11 @@
       },
       {
         "value": "5000+",
-        "label": "Başarılı Düğün"
+        "label": "Düğün & Özel Gün"
       },
       {
-        "value": "%100",
-        "label": "Müşteri Memnuniyeti"
+        "value": "1500",
+        "label": "Kişiye Kadar"
       }
     ]
   },
@@ -77,15 +90,15 @@
     },
     {
       "id": "s3",
-      "icon": "🕴️",
-      "title": "Garson Temini",
-      "text": "Özel etkinlikleriniz ve düğün davetleriniz için deneyimli ve güler yüzlü profesyonel servis kadrosu."
-    },
-    {
-      "id": "s4",
       "icon": "🔥",
       "title": "Bakır Kazanlar",
       "text": "1993'ten beri geleneksel yöntemlerle, odun ateşinde ve dev bakır kazanlarda eşsiz pişim lezzeti."
+    },
+    {
+      "id": "s4",
+      "icon": "🕴️",
+      "title": "Garson Temini",
+      "text": "Düğün sofranız için deneyimli servis ekibi — yemek organizasyonunuzun tamamlayıcı hizmeti."
     }
   ],
   "packages": [],
