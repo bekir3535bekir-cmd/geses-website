@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const y = window.scrollY;
     navbar.classList.toggle('scrolled', y > 50);
     if (mobilePhoneMq.matches) {
-      document.body.classList.toggle('phone-dock-active', y > 40);
+      /* Dock: nabız yok; üst çubukla çakışmasın diye hafif eşik */
+      document.body.classList.toggle('phone-dock-active', y > 56);
     } else {
       document.body.classList.remove('phone-dock-active');
     }

@@ -319,7 +319,10 @@ section[id] {
 @media (prefers-reduced-motion: reduce) {
   .top-phone-link,
   .top-phone-number,
-  .top-phone-icon {
+  .top-phone-icon,
+  .mobile-phone-dock,
+  .mobile-phone-dock .top-phone-number,
+  .mobile-phone-dock .top-phone-icon {
     animation: none;
   }
 }
@@ -2370,6 +2373,8 @@ body.lightbox-open {
     padding-bottom: 0;
     overflow: hidden;
     pointer-events: none;
+    animation: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease, max-height 0.25s ease;
   }
   .top-phone-icon {
     width: 26px;
@@ -2387,26 +2392,23 @@ body.lightbox-open {
     padding: 10px 20px 10px 12px;
     border-radius: 999px;
     background: var(--primary-dark);
-    border: 1px solid rgba(230, 197, 132, 0.45);
+    border: 1px solid rgba(230, 197, 132, 0.55);
     color: var(--white);
     text-decoration: none;
     font-size: 0.88rem;
     font-weight: 700;
-    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.28);
-    transform: translate(-50%, 130%);
-    opacity: 0;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.35);
+    transform: translate(-50%, calc(100% + 24px));
     visibility: hidden;
     pointer-events: none;
     transition:
-      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-      opacity 0.35s ease,
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
       visibility 0.35s ease;
-    animation: top-phone-glow 2s ease-in-out infinite;
+    animation: none;
   }
 
   body.phone-dock-active .mobile-phone-dock {
     transform: translate(-50%, 0);
-    opacity: 1;
     visibility: visible;
     pointer-events: auto;
   }
@@ -2415,8 +2417,17 @@ body.lightbox-open {
     padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
   }
 
+  .mobile-phone-dock .top-phone-icon,
   .mobile-phone-dock .top-phone-number {
-    animation: top-phone-blink 2s ease-in-out infinite;
+    animation: none;
+    opacity: 1;
+    color: var(--white);
+  }
+
+  .mobile-phone-dock .top-phone-icon {
+    background: var(--gold-gradient);
+    color: var(--primary-dark);
+    box-shadow: none;
   }
   .top-social {
     display: flex;
