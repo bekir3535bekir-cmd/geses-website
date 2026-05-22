@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GESES | Geleneksel Düğün Yemekleri</title>
+  <title>GESES | Geleneksel Düğün Yemekleri — Isparta</title>
   <meta name="description" content="Isparta, Burdur, Bucak ve çevresi için geleneksel düğün yemekleri. Meşhur Kabune pilavı, odun ateşinde kuru fasulye ve irmik helvası. 1993'ten beri dev bakır kazanlarda pişen asırlık lezzetler." />
   <meta name="keywords" content="Isparta düğün yemeği, Burdur düğün yemeği, Bucak düğün yemeği, Kabune pilavı, geleneksel düğün menüsü, toplu yemek organizasyonu, GESES düğün yemekleri, Isparta aşçı" />
   <meta name="author" content="GESES Düğün Yemekleri" />
@@ -44,9 +44,10 @@
           <button type="button" class="nav-drawer-close" id="navClose" aria-label="Menüyü kapat">Kapat</button>
         </li>
         <li><a href="#hakkimizda">Hakkımızda</a></li>
-        <li><a href="#hizmetler">Hizmetlerimiz</a></li>
-        <li><a href="#garson-temini">Garson Temini</a></li>
+        <li><a href="#hizmetler">Düğün Menüsü</a></li>
+        <li><a href="#showcase">İmza Lezzetler</a></li>
         <li><a href="#galeri">Galeri</a></li>
+        <li><a href="#garson-temini">Garson Temini</a></li>
         <li><a href="#referanslar">Referanslar</a></li>
         <li><a href="#iletisim" class="nav-cta">Teklif Al</a></li>
       </ul>
@@ -57,28 +58,76 @@
   </nav>
   <div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
 
-  <!-- SPLIT HERO SECTION -->
-  <section class="hero-split" id="hero">
-    <div class="container hero-container">
-      <div class="hero-text-side">
+  <!-- HERO — Tam ekran düğün yemeği girişi -->
+  <section class="hero-cinema" id="hero">
+    <div class="hero-cinema-media" aria-hidden="true">
+      <img
+        class="hero-cinema-bg"
+        src="assets/hakkimizda-kazan.png"
+        alt=""
+        width="1920"
+        height="1080"
+        loading="eager"
+        decoding="async"
+      />
+      <div class="hero-cinema-shade"></div>
+    </div>
+
+    <div class="container hero-cinema-layout">
+      <div class="hero-cinema-copy">
         <div class="hero-badge reveal">
-          <span>✨</span> Geleneksel Düğün Yemeği Klasiği
+          <span>✨</span> Isparta · Burdur · Bucak ve Çevresi
         </div>
-        <span class="hero-script reveal">En Özel Günleriniz İçin...</span>
+        <span class="hero-script reveal">1993'ten Bugüne</span>
         <h1 class="hero-title reveal">
-          Geleneksel<br />
-          <span>Düğün Mutfağı</span>
+          Bakır Kazanda<br />
+          <span>Düğün Sofrası</span>
         </h1>
         <p class="hero-desc reveal">
-          1993'ten bugüne, odun ateşinde ve dev bakır kazanlarda pişen asırlık lezzetleri, profesyonel garson kadromuz ve kusursuz servisimizle sofralarınıza taşıyoruz.
+          Odun ateşinde pişen düğün çorbası, meşhur Isparta kabunesi ve geleneksel ana yemeklerimizle 500–1500 kişilik düğün ve özel gün organizasyonlarınıza hazırız.
         </p>
+        <ul class="hero-pills reveal" aria-label="Öne çıkan hizmetler">
+          <li>Bakır kazanda pişim</li>
+          <li>Meşhur kabune pilavı</li>
+          <li>Toplu düğün menüsü</li>
+        </ul>
         <div class="hero-actions reveal">
           <a href="#iletisim" class="btn btn-gold">
-            Teklif Alın
+            Düğün Teklifi Alın
             <span class="btn-arrow">→</span>
           </a>
-          <a href="#hizmetler" class="btn btn-outline-dark">Hizmetlerimiz</a>
+          <a href="#showcase" class="btn btn-outline-light">Menüyü Görün</a>
         </div>
+        <div class="hero-food-badge hero-cinema-chip reveal">
+          <span class="badge-icon">🔥</span>
+          <div>
+            <strong>Odun Ateşinde</strong>
+            <span>Bakır Kazan</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-cinema-panel reveal" aria-label="İmza düğün yemekleri">
+        <p class="hero-panel-tag">Menüden seçmeler</p>
+        <div class="hero-dishes">
+          <article class="hero-dish hero-dish-1">
+            <img src="assets/kabune.png" alt="Meşhur Isparta kabune pilavı" loading="eager" />
+            <span class="hero-dish-label">Kabune Pilavı</span>
+          </article>
+          <article class="hero-dish hero-dish-2">
+            <img src="assets/corba.png" alt="Geleneksel düğün çorbası" loading="eager" />
+            <span class="hero-dish-label">Düğün Çorbası</span>
+          </article>
+          <article class="hero-dish hero-dish-3">
+            <img src="assets/fasulye.png" alt="Odun ateşinde kuru fasulye" loading="eager" />
+            <span class="hero-dish-label">Kuru Fasulye</span>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-cinema-bar">
+      <div class="container">
         <div class="hero-trust reveal">
           <div class="trust-item">
             <strong>1993</strong>
@@ -87,32 +136,12 @@
           <div class="trust-divider"></div>
           <div class="trust-item">
             <strong>5000+</strong>
-            <span>Başarılı Düğün</span>
+            <span>Düğün &amp; Özel Gün</span>
           </div>
           <div class="trust-divider"></div>
           <div class="trust-item">
-            <strong>%100</strong>
-            <span>Müşteri Memnuniyeti</span>
-          </div>
-        </div>
-      </div>
-      <div class="hero-image-side reveal">
-        <div class="collage-container">
-          <div class="collage-main">
-            <img src="assets/father-son.png" alt="Bakır Kazanda Düğün Yemeği Pişiren Aşçılar" />
-          </div>
-          <div class="collage-badge">
-            <span class="badge-icon">🔥</span>
-            <div>
-              <strong>Odun Ateşinde</strong>
-              <span>Geleneksel Pişim</span>
-            </div>
-          </div>
-          <div class="collage-sub collage-sub-1">
-            <img src="assets/kabune.png" alt="Meşhur Isparta Kabune Pilavı" />
-          </div>
-          <div class="collage-sub collage-sub-2">
-            <img src="assets/corba.png" alt="Geleneksel Düğün Çorbası" />
+            <strong>1500</strong>
+            <span>Kişiye Kadar</span>
           </div>
         </div>
       </div>
@@ -122,6 +151,11 @@
   <!-- SERVICES -->
   <section class="services-brief" id="hizmetler">
     <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Hizmetlerimiz</div>
+        <h2 class="section-title">Düğün <em>Yemeği</em> Odaklı</h2>
+        <p class="section-desc">Toplu yemek ve geleneksel menü önceliğimizdir; garson temini tamamlayıcı hizmetimizdir.</p>
+      </div>
       <div class="service-grid" id="cmsServices"></div>
     </div>
   </section>
@@ -336,7 +370,7 @@
         <div class="footer-brand">
           <div class="logo-title">GESES</div>
           <span class="logo-icon">🍽</span>
-          <div class="logo-services">Düğün Yemekleri - Personel Temini ve Organizasyon</div>
+          <div class="logo-services">Geleneksel Düğün Yemekleri · Isparta ve Çevresi</div>
           <div class="logo-sub">1993'ten Bugüne</div>
         </div>
         <div class="footer-social">

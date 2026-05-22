@@ -120,26 +120,34 @@
     setText('.hero-desc', h.description);
 
     const imgs = h.images || {};
-    const main = document.querySelector('.collage-main img');
-    if (main && imgs.main) {
-      main.src = imgs.main.src;
-      main.alt = imgs.main.alt || '';
+    const bg = document.querySelector('.hero-cinema-bg');
+    if (bg && imgs.main) {
+      bg.src = imgs.main.src;
+      bg.alt = '';
     }
-    const s1 = document.querySelector('.collage-sub-1 img');
-    if (s1 && imgs.sub1) {
-      s1.src = imgs.sub1.src;
-      s1.alt = imgs.sub1.alt || '';
-    }
-    const s2 = document.querySelector('.collage-sub-2 img');
-    if (s2 && imgs.sub2) {
-      s2.src = imgs.sub2.src;
-      s2.alt = imgs.sub2.alt || '';
+    const dishMap = [
+      ['.hero-dish-1', imgs.sub1],
+      ['.hero-dish-2', imgs.sub2],
+      ['.hero-dish-3', imgs.sub3],
+    ];
+    dishMap.forEach(([sel, data]) => {
+      const img = document.querySelector(`${sel} img`);
+      const label = document.querySelector(`${sel} .hero-dish-label`);
+      if (!img || !data) return;
+      img.src = data.src;
+      img.alt = data.alt || '';
+      if (label && data.label) label.textContent = data.label;
+    });
+
+    const pills = document.querySelector('.hero-pills');
+    if (pills && Array.isArray(h.pills)) {
+      pills.innerHTML = h.pills.map((t) => `<li>${esc(t)}</li>`).join('');
     }
 
-    const badge = h.collageBadge || {};
-    setText('.collage-badge .badge-icon', badge.icon);
-    const badgeStrong = document.querySelector('.collage-badge strong');
-    const badgeSpan = document.querySelector('.collage-badge span:not(.badge-icon)');
+    const badge = h.foodBadge || h.collageBadge || {};
+    setText('.hero-food-badge .badge-icon', badge.icon);
+    const badgeStrong = document.querySelector('.hero-food-badge strong');
+    const badgeSpan = document.querySelector('.hero-food-badge span:not(.badge-icon)');
     if (badgeStrong) badgeStrong.textContent = badge.title || '';
     if (badgeSpan) badgeSpan.textContent = badge.subtitle || '';
 
