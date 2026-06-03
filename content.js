@@ -26,14 +26,115 @@
     if (el) el.innerHTML = html;
   }
 
+  function setMetaAttr(selector, value) {
+    if (value == null || value === '') return;
+    const el = document.querySelector(selector);
+    if (el) el.setAttribute('content', value);
+  }
+
+  function absoluteUrl(base, path) {
+    const site = (base || 'https://www.geses.com.tr').replace(/\/$/, '');
+    if (!path) return site + '/';
+    if (/^https?:\/\//i.test(path)) return path;
+    return `${site}/${String(path).replace(/^\//, '')}`;
+  }
+
+  function buildSchemaGraph(c) {
+    const seo = c.seo || {};
+    const siteUrl = (seo.siteUrl || 'https://www.geses.com.tr').replace(/\/$/, '');
+    const ct = c.contact || {};
+    const tel = ct.phoneTel || '+905366052254';
+    const areas = (seo.areas || ['Isparta', 'Burdur', 'Bucak', 'Yalvaç', 'Eğirdir']).map((name) => ({
+      '@type': 'City',
+      name,
+    }));
+    const sameAs = [ct.instagram, ct.facebook].filter(Boolean);
+    const businessId = `${siteUrl}/#business`;
+
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebSite',
+          '@id': `${siteUrl}/#website`,
+          url: siteUrl,
+          name: c.meta?.title || 'GESES Düğün Yemekleri',
+          inLanguage: 'tr-TR',
+          publisher: { '@id': businessId },
+        },
+        {
+          '@type': 'FoodEstablishment',
+          '@id': businessId,
+          name: 'GESES — Isparta Düğün Catering ve Personel Temini',
+          description: c.meta?.description || '',
+          url: siteUrl,
+          telephone: tel,
+          image: absoluteUrl(siteUrl, seo.ogImage || 'assets/kabune.png'),
+          servesCuisine: 'Turkish',
+          priceRange: '$$',
+          areaServed: areas,
+          sameAs,
+        },
+        {
+          '@type': 'Service',
+          name: 'Isparta düğün catering ve yemek hizmeti',
+          serviceType: 'Düğün catering',
+          provider: { '@id': businessId },
+          areaServed: { '@type': 'City', name: 'Isparta' },
+          description:
+            'Geleneksel düğün yemeği, bakır kazanda pişim, kabune pilavı ve toplu organizasyon catering hizmeti.',
+        },
+        {
+          '@type': 'Service',
+          name: 'Isparta garson ve personel temini',
+          serviceType: 'Personel temini',
+          provider: { '@id': businessId },
+          areaServed: { '@type': 'City', name: 'Isparta' },
+          description:
+            'Düğün ve özel gün organizasyonları için profesyonel garson, servis ve personel temini.',
+        },
+      ],
+    };
+  }
+
   function applyMeta(c) {
-    document.title = c.meta?.title || document.title;
-    const desc = document.querySelector('meta[name="description"]');
-    if (desc && c.meta?.description) desc.setAttribute('content', c.meta.description);
-    const kw = document.querySelector('meta[name="keywords"]');
-    if (kw && c.meta?.keywords) kw.setAttribute('content', c.meta.keywords);
-    const auth = document.querySelector('meta[name="author"]');
-    if (auth && c.meta?.author) auth.setAttribute('content', c.meta.author);
+    const m = c.meta || {};
+    const seo = c.seo || {};
+    const siteUrl = (seo.siteUrl || 'https://www.geses.com.tr').replace(/\/$/, '');
+    const ogImage = absoluteUrl(siteUrl, seo.ogImage || 'assets/kabune.png');
+
+    if (m.title) document.title = m.title;
+    setMetaAttr('meta[name="description"]', m.description);
+    setMetaAttr('meta[name="keywords"]', m.keywords);
+    setMetaAttr('meta[name="author"]', m.author);
+
+    setMetaAttr('meta[property="og:title"]', m.ogTitle || m.title);
+    setMetaAttr('meta[property="og:description"]', m.ogDescription || m.description);
+    setMetaAttr('meta[property="og:url"]', siteUrl + '/');
+    setMetaAttr('meta[property="og:image"]', ogImage);
+    setMetaAttr('meta[name="twitter:title"]', m.twitterTitle || m.title);
+    setMetaAttr('meta[name="twitter:description"]', m.twitterDescription || m.description);
+    setMetaAttr('meta[name="twitter:image"]', ogImage);
+
+    const canonical = document.getElementById('canonicalUrl');
+    if (canonical) canonical.setAttribute('href', siteUrl + '/');
+
+    const schemaEl = document.getElementById('schemaOrgJson');
+    if (schemaEl) schemaEl.textContent = JSON.stringify(buildSchemaGraph(c));
+  }
+
+  function applyLocalSeo(c) {
+    const block = c.localSeo || {};
+    setText('#localSeoTag', block.tag);
+    setText('#localSeoHeading', block.heading);
+    const body = document.getElementById('localSeoBody');
+    if (body && Array.isArray(block.paragraphs)) {
+      body.innerHTML = block.paragraphs.map((p) => `<p>${esc(p)}</p>`).join('');
+    }
+    const areas = document.getElementById('localSeoAreas');
+    if (areas && Array.isArray(block.areas)) {
+      areas.innerHTML = block.areas.map((a) => `<li>${esc(a)}</li>`).join('');
+    }
   }
 
   function applyContact(c) {
@@ -318,13 +419,39 @@
     const title = document.getElementById('cmsTestiTitle');
     if (title) title.innerHTML = `${esc(t.title || '')} <em>${esc(t.titleEm || '')}</em>`;
 
+    const note = document.getElementById('cmsTestiGoogleNote');
+    if (note) {
+      const label = t.googleNote || 'Gerçek Google yorumları';
+      const url = t.googleReviewsUrl || '';
+      const icon = note.querySelector('.testi-google-note-icon');
+      const iconHtml = icon ? icon.outerHTML : '';
+      if (url) {
+        note.innerHTML = `${iconHtml}<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>`;
+      } else {
+        note.innerHTML = `${iconHtml}${esc(label)}`;
+      }
+    }
+
+    const googleBadge = t.googleBadge || 'Google Yorumu';
+    const showGoogle = t.googleReviews !== false;
+
     const grid = document.getElementById('cmsTestimonials');
     if (!grid) return;
     grid.innerHTML = (t.items || [])
       .map(
         (item, i) => `
-      <div class="testi-card reveal" id="testiCard${i + 1}">
-        <div class="testi-stars">${'★'.repeat(Math.min(5, item.stars || 5))}</div>
+      <div class="testi-card reveal${showGoogle && item.google !== false ? ' testi-card--google' : ''}" id="testiCard${i + 1}">
+        ${showGoogle && item.google !== false ? `
+        <div class="testi-google-badge" title="Google İşletme yorumu">
+          <svg class="testi-google-badge-icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          <span>${esc(googleBadge)}</span>
+        </div>` : ''}
+        <div class="testi-stars" aria-label="${Math.min(5, item.stars || 5)} yıldız">${'★'.repeat(Math.min(5, item.stars || 5))}</div>
         <p>"${esc(item.text)}"</p>
         <div class="testi-author">
           <div class="testi-avatar">${esc(item.initials)}</div>
@@ -395,6 +522,7 @@
     applyWhyUs(c);
     applyContactSection(c);
     applyFooter(c);
+    applyLocalSeo(c);
   }
 
   async function loadContent() {

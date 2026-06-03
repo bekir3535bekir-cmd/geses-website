@@ -1698,12 +1698,68 @@ body.lightbox-open {
   gap: 30px;
 }
 
+.testi-google-note {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+.testi-google-note a {
+  color: var(--primary-dark);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(184, 142, 47, 0.35);
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.testi-google-note a:hover {
+  color: var(--gold-base);
+  border-color: var(--gold-base);
+}
+
+.testi-google-note-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
 .testi-card {
   background: var(--off-white);
   padding: 40px;
   border: 1px solid var(--border-gold);
   position: relative;
   transition: all var(--transition-fast);
+}
+
+.testi-card--google {
+  padding-top: 48px;
+}
+
+.testi-google-badge {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px 5px 8px;
+  border-radius: 999px;
+  background: var(--white);
+  border: 1px solid rgba(66, 133, 244, 0.22);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #5f6368;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.testi-google-badge-icon {
+  display: block;
+  flex-shrink: 0;
 }
 
 .testi-card::before {
@@ -1866,6 +1922,45 @@ body.lightbox-open {
   font-size: 1.1rem;
   color: var(--primary-dark);
   margin: 0;
+}
+
+/* ---------- YEREL SEO (Isparta catering / personel) ---------- */
+.local-seo {
+  padding: 72px 0;
+  background: var(--off-white);
+  border-top: 1px solid var(--border-light);
+}
+
+.local-seo-body p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-light);
+  margin-bottom: 16px;
+  max-width: 820px;
+}
+
+.local-seo-body p:last-child {
+  margin-bottom: 0;
+}
+
+.local-seo-areas {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+  padding: 0;
+}
+
+.local-seo-areas li {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--primary-dark);
+  background: var(--white);
+  border: 1px solid rgba(184, 142, 47, 0.28);
+  padding: 8px 14px;
+  border-radius: 999px;
 }
 
 /* ---------- CONTACT SECTION (İLETİŞİM) ---------- */
