@@ -1,9 +1,32 @@
 {
   "meta": {
-    "title": "GESES | Geleneksel Düğün Yemekleri",
-    "description": "Isparta, Burdur, Bucak ve çevresi için geleneksel düğün yemekleri. Meşhur Kabune pilavı, odun ateşinde kuru fasulye ve irmik helvası. 1993'ten beri dev bakır kazanlarda pişen asırlık lezzetler.",
-    "keywords": "Isparta düğün yemeği, Burdur düğün yemeği, Bucak düğün yemeği, Kabune pilavı, geleneksel düğün menüsü, toplu yemek organizasyonu, GESES düğün yemekleri, Isparta aşçı",
-    "author": "GESES Düğün Yemekleri"
+    "title": "GESES | Isparta Düğün Catering, Yemek ve Personel Temini",
+    "description": "Isparta, Burdur ve Bucak'ta düğün catering, geleneksel düğün yemeği, garson ve personel temini. 1993'ten beri bakır kazanda toplu organizasyon. Teklif: 0536 605 22 54.",
+    "keywords": "Isparta düğün catering, Isparta personel temini, Isparta garson temini, Isparta düğün yemeği, Burdur düğün catering, Bucak düğün yemeği, düğün organizasyonu Isparta, toplu yemek catering, GESES düğün yemekleri, Isparta düğün firması",
+    "author": "GESES Düğün Yemekleri",
+    "ogTitle": "GESES | Isparta Düğün Catering ve Personel Temini",
+    "ogDescription": "Düğün yemeği, catering ve garson personel temini — Isparta, Burdur, Bucak. 1993'ten beri güvenilir organizasyon.",
+    "twitterTitle": "GESES | Isparta Düğün Catering ve Personel Temini",
+    "twitterDescription": "Isparta'da düğün catering, geleneksel menü ve personel temini. Hemen teklif alın."
+  },
+  "seo": {
+    "siteUrl": "https://www.geses.com.tr",
+    "ogImage": "assets/og-share.jpg",
+    "ogImageAlt": "Meşhur Isparta kabune pilavı — GESES geleneksel düğün yemeği",
+    "ogImageWidth": 1200,
+    "ogImageHeight": 630,
+    "ogImageType": "image/jpeg",
+    "areas": ["Isparta", "Burdur", "Bucak", "Yalvaç", "Eğirdir", "Senirkent", "Keçiborlu", "Gönen", "Uluborlu"]
+  },
+  "localSeo": {
+    "tag": "Hizmet Bölgemiz",
+    "heading": "Isparta Düğün Catering ve Personel Temini",
+    "paragraphs": [
+      "GESES olarak Isparta ve çevresinde düğün catering, geleneksel düğün yemeği ve profesyonel personel temini hizmeti sunuyoruz. Odun ateşinde bakır kazanda pişen kabune pilavı, düğün çorbası, kuru fasulye ve irmik helvasıyla 500–1500 kişilik organizasyonlara hazırız.",
+      "Isparta garson temini ve düğün personel temini ihtiyacınızda deneyimli servis ekibimizle sofra düzeni, ikram ve misafir karşılamayı tek çatı altında planlıyoruz. Burdur, Bucak, Yalvaç ve Eğirdir başta olmak üzere çevre ilçelere de hizmet veriyoruz.",
+      "Google'da \"Isparta düğün catering\" veya \"Isparta personel temini\" arayan çiftler ve aileler için 1993'ten bu yana güvenilir lezzet ve kusursuz servis sunuyoruz. Düğün teklifi için formu doldurun veya hemen arayın."
+    ],
+    "areas": ["Isparta", "Merkez", "Burdur", "Bucak", "Yalvaç", "Eğirdir", "Senirkent", "Keçiborlu", "Şarkikaraağaç", "Gelendost"]
   },
   "contact": {
     "phoneDisplay": "0536 605 22 54",
@@ -13,7 +36,7 @@
     "instagram": "https://www.instagram.com/geses.organizasyon/",
     "facebook": "https://www.facebook.com/geses.com.tr/",
     "address": "",
-    "serviceArea": "Tüm Çevre Bölgelere Hizmet"
+    "serviceArea": "Isparta, Burdur, Bucak ve çevre ilçeler — düğün catering & personel temini"
   },
   "footer": {
     "brand": "GESES",
@@ -22,13 +45,13 @@
     "copyright": "© 2025 GESES Düğün Yemekleri. Tüm hakları saklıdır."
   },
   "hero": {
-    "badge": "Geleneksel Düğün Yemeği Klasiği",
+    "badge": "Isparta · Düğün Catering & Personel Temini",
     "badgeIcon": "✨",
     "script": "En Özel Günleriniz İçin…",
     "titleLine1": "Geleneksel",
     "titleHighlight": "Düğün",
     "titleLine2": "Mutfağı",
-    "description": "1993'ten bugüne, odun ateşinde ve dev bakır kazanlarda pişen asırlık lezzetleri, profesyonel garson kadromuz ve kusursuz servisimizle sofralarınıza taşıyoruz.",
+    "description": "Isparta ve çevresinde düğün catering, geleneksel yemek ve personel temini. 1993'ten bugüne bakır kazanda pişen lezzetler ve profesyonel garson kadromuzla sofralarınıza taşıyoruz.",
     "pills": [
       "Bakır kazanda pişim",
       "Meşhur kabune pilavı",
@@ -96,8 +119,9 @@
     {
       "id": "s3",
       "icon": "🕴️",
-      "title": "Garson Temini",
-      "text": "Özel etkinlikleriniz ve düğün davetleriniz için deneyimli ve güler yüzlü profesyonel servis kadrosu."
+      "title": "Garson & Personel Temini",
+      "text": "Isparta düğün catering organizasyonlarınız için garson ve personel temini. Deneyimli servis ekibiyle sofra düzeni ve misafir karşılama.",
+      "anchor": "garson-temini"
     },
     {
       "id": "s4",
@@ -295,6 +319,10 @@
     "tag": "Referanslar",
     "title": "Mutlu",
     "titleEm": "Aileler",
+    "googleReviews": true,
+    "googleNote": "Gerçek Google yorumları",
+    "googleBadge": "Google Yorumu",
+    "googleReviewsUrl": "",
     "items": [
       {
         "id": "t1",

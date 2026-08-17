@@ -279,12 +279,19 @@
   }
 
   function renderTestimonials() {
-    return renderListPanel('Müşteri yorumları', 'testimonials.items', (t, i) => listItemEditor(t, `
-      ${field('Yıldız (1-5)', `<input type="number" min="1" max="5" data-list="testimonials.items" data-i="${i}" data-k="stars" value="${t.stars || 5}" />`)}
-      ${field('Yorum', `<textarea data-list="testimonials.items" data-i="${i}" data-k="text">${t.text || ''}</textarea>`)}
-      ${field('İsim', `<input data-list="testimonials.items" data-i="${i}" data-k="name" value="${t.name || ''}" />`)}
-      ${field('Baş harfler', `<input data-list="testimonials.items" data-i="${i}" data-k="initials" value="${t.initials || ''}" maxlength="3" />`)}
-    `, i, 'testimonials.items'), { id: uid(), stars: 5, text: '', name: '', initials: 'AA' });
+    const t = content.testimonials || {};
+    return `
+      <div class="card"><h3>Google yorumları</h3>
+        ${field('Başlık altı not', `<input data-c="testimonials.googleNote" value="${t.googleNote || 'Gerçek Google yorumları'}" />`)}
+        ${field('Kart rozeti', `<input data-c="testimonials.googleBadge" value="${t.googleBadge || 'Google Yorumu'}" />`)}
+        ${field('Google yorumlar linki (isteğe bağlı)', `<input data-c="testimonials.googleReviewsUrl" value="${t.googleReviewsUrl || ''}" placeholder="https://g.page/..." />`)}
+      </div>
+      ${renderListPanel('Müşteri yorumları', 'testimonials.items', (item, i) => listItemEditor(item, `
+      ${field('Yıldız (1-5)', `<input type="number" min="1" max="5" data-list="testimonials.items" data-i="${i}" data-k="stars" value="${item.stars || 5}" />`)}
+      ${field('Yorum', `<textarea data-list="testimonials.items" data-i="${i}" data-k="text">${item.text || ''}</textarea>`)}
+      ${field('İsim', `<input data-list="testimonials.items" data-i="${i}" data-k="name" value="${item.name || ''}" />`)}
+      ${field('Baş harfler', `<input data-list="testimonials.items" data-i="${i}" data-k="initials" value="${item.initials || ''}" maxlength="3" />`)}
+    `, i, 'testimonials.items'), { id: uid(), stars: 5, text: '', name: '', initials: 'AA' })}`;
   }
 
   function renderWhy() {
@@ -304,11 +311,23 @@
   function renderSeo() {
     const m = content.meta;
     const f = content.footer;
+    const ls = content.localSeo || {};
+    const seo = content.seo || {};
     return `
-      <div class="card"><h3>SEO</h3>
+      <div class="card"><h3>SEO (Google)</h3>
+        <p style="color:var(--muted);font-size:.85rem">Hedef: Isparta düğün catering, personel temini, garson temini</p>
         ${field('Sayfa başlığı', `<input data-c="meta.title" value="${m.title || ''}" />`)}
-        ${field('Açıklama', `<textarea data-c="meta.description">${m.description || ''}</textarea>`)}
+        ${field('Açıklama (max ~160 karakter)', `<textarea data-c="meta.description">${m.description || ''}</textarea>`)}
         ${field('Anahtar kelimeler', `<input data-c="meta.keywords" value="${m.keywords || ''}" />`)}
+        ${field('Site adresi', `<input data-c="seo.siteUrl" value="${seo.siteUrl || 'https://www.geses.com.tr'}" />`)}
+        ${field('Paylaşım görseli (Google arama küçük resmi)', `<input data-c="seo.ogImage" value="${seo.ogImage || 'assets/og-share.jpg'}" placeholder="assets/og-share.jpg" />`)}
+        ${field('Görsel alt metni', `<input data-c="seo.ogImageAlt" value="${seo.ogImageAlt || 'Meşhur Isparta kabune pilavı — GESES geleneksel düğün yemeği'}" />`)}
+      </div>
+      <div class="card"><h3>Yerel SEO metni</h3>
+        ${field('Bölüm başlığı', `<input data-c="localSeo.heading" value="${ls.heading || ''}" />`)}
+        ${field('Paragraf 1', `<textarea data-c="localSeo.paragraphs.0">${(ls.paragraphs && ls.paragraphs[0]) || ''}</textarea>`)}
+        ${field('Paragraf 2', `<textarea data-c="localSeo.paragraphs.1">${(ls.paragraphs && ls.paragraphs[1]) || ''}</textarea>`)}
+        ${field('Paragraf 3', `<textarea data-c="localSeo.paragraphs.2">${(ls.paragraphs && ls.paragraphs[2]) || ''}</textarea>`)}
       </div>
       <div class="card"><h3>Footer</h3>
         ${field('Marka', `<input data-c="footer.brand" value="${f.brand || ''}" />`)}

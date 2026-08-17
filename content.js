@@ -50,6 +50,11 @@
     }));
     const sameAs = [ct.instagram, ct.facebook].filter(Boolean);
     const businessId = `${siteUrl}/#business`;
+    const pageId = `${siteUrl}/#webpage`;
+    const ogImage = absoluteUrl(siteUrl, seo.ogImage || 'assets/og-share.jpg');
+    const ogAlt =
+      seo.ogImageAlt ||
+      'Meşhur Isparta kabune pilavı — GESES geleneksel düğün yemeği';
 
     return {
       '@context': 'https://schema.org',
@@ -63,13 +68,29 @@
           publisher: { '@id': businessId },
         },
         {
+          '@type': 'WebPage',
+          '@id': pageId,
+          url: `${siteUrl}/`,
+          name: c.meta?.title || 'GESES Düğün Yemekleri',
+          isPartOf: { '@id': `${siteUrl}/#website` },
+          about: { '@id': businessId },
+          primaryImageOfPage: {
+            '@type': 'ImageObject',
+            url: ogImage,
+            width: seo.ogImageWidth || 1200,
+            height: seo.ogImageHeight || 630,
+            caption: ogAlt,
+          },
+        },
+        {
           '@type': 'FoodEstablishment',
           '@id': businessId,
           name: 'GESES — Isparta Düğün Catering ve Personel Temini',
           description: c.meta?.description || '',
           url: siteUrl,
           telephone: tel,
-          image: absoluteUrl(siteUrl, seo.ogImage || 'assets/kabune.png'),
+          image: ogImage,
+          logo: absoluteUrl(siteUrl, c.logo?.src || 'assets/logo-cropped.png'),
           servesCuisine: 'Turkish',
           priceRange: '$$',
           areaServed: areas,
@@ -101,7 +122,10 @@
     const m = c.meta || {};
     const seo = c.seo || {};
     const siteUrl = (seo.siteUrl || 'https://www.geses.com.tr').replace(/\/$/, '');
-    const ogImage = absoluteUrl(siteUrl, seo.ogImage || 'assets/kabune.png');
+    const ogImage = absoluteUrl(siteUrl, seo.ogImage || 'assets/og-share.jpg');
+    const ogAlt =
+      seo.ogImageAlt ||
+      'Meşhur Isparta kabune pilavı — GESES geleneksel düğün yemeği';
 
     if (m.title) document.title = m.title;
     setMetaAttr('meta[name="description"]', m.description);
@@ -112,9 +136,15 @@
     setMetaAttr('meta[property="og:description"]', m.ogDescription || m.description);
     setMetaAttr('meta[property="og:url"]', siteUrl + '/');
     setMetaAttr('meta[property="og:image"]', ogImage);
+    setMetaAttr('meta[property="og:image:secure_url"]', ogImage);
+    setMetaAttr('meta[property="og:image:type"]', seo.ogImageType || 'image/jpeg');
+    setMetaAttr('meta[property="og:image:width"]', String(seo.ogImageWidth || 1200));
+    setMetaAttr('meta[property="og:image:height"]', String(seo.ogImageHeight || 630));
+    setMetaAttr('meta[property="og:image:alt"]', ogAlt);
     setMetaAttr('meta[name="twitter:title"]', m.twitterTitle || m.title);
     setMetaAttr('meta[name="twitter:description"]', m.twitterDescription || m.description);
     setMetaAttr('meta[name="twitter:image"]', ogImage);
+    setMetaAttr('meta[name="twitter:image:alt"]', ogAlt);
 
     const canonical = document.getElementById('canonicalUrl');
     if (canonical) canonical.setAttribute('href', siteUrl + '/');
