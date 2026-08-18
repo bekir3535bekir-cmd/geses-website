@@ -21,6 +21,32 @@ document.addEventListener('DOMContentLoaded', () => {
   mobilePhoneMq.addEventListener('change', updateScrollUi);
   updateScrollUi();
 
+  // ---------- Google Ads conversion tracking ----------
+  const triggerGoogleAdsConversion = () => {
+    if (typeof gtag === 'function') {
+      gtag('event', 'conversion', {
+        send_to: 'AW-18389833589/qXp6CNz9lOMcEPWu-sBE',
+      });
+    }
+  };
+
+  const bindConversionTracking = () => {
+    const selectors = [
+      '.top-phone-link',
+      '.nav-cta',
+      '.hero-actions .btn-gold',
+      '#phoneCard a',
+      '#whatsappCard a',
+      '#mobilePhoneDock',
+    ];
+
+    document.querySelectorAll(selectors.join(', ')).forEach((el) => {
+      if (el.dataset.conversionBound === 'true') return;
+      el.dataset.conversionBound = 'true';
+      el.addEventListener('click', triggerGoogleAdsConversion);
+    });
+  };
+
   // ---------- Intersection Observer for Reveals ----------
   const revealOptions = {
     threshold: 0.1,
@@ -230,6 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
     bindSectionFlows();
     bindShowcaseEffects();
     bindStatsCounter();
+    bindConversionTracking();
     initGalleryLightbox();
   };
 
@@ -326,6 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.innerText = 'WhatsApp açılıyor...';
       submitBtn.style.pointerEvents = 'none';
       submitBtn.style.opacity = '0.7';
+      triggerGoogleAdsConversion();
 
       const waUrl = `https://wa.me/${getWhatsAppNumber()}?text=${encodeURIComponent(buildWhatsAppTeklifMessage(data))}`;
       window.open(waUrl, '_blank', 'noopener,noreferrer');
