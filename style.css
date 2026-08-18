@@ -2269,12 +2269,26 @@ body.lightbox-open {
   color: var(--gold-light);
 }
 
+.footer-meta {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 30px;
+}
+
 .footer-copy {
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.4);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  padding-top: 30px;
-  width: 100%;
+}
+
+.footer-designed-by {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.52);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 /* ---------- REVEAL (hızlı, blur yok) ---------- */
@@ -3041,6 +3055,11 @@ body.lightbox-open {
     padding-left: 8px;
     padding-right: 8px;
     overflow-wrap: break-word;
+  }
+
+  .footer-meta {
+    flex-direction: column;
+    text-align: center;
   }
 }
 
