@@ -22,11 +22,17 @@ document.addEventListener('DOMContentLoaded', () => {
   updateScrollUi();
 
   // ---------- Google Ads conversion tracking ----------
-  const triggerGoogleAdsConversion = () => {
+  const triggerGoogleAdsConversion = (onDone) => {
+    if (typeof onDone !== 'function') onDone = () => {};
     if (typeof gtag === 'function') {
       gtag('event', 'conversion', {
         send_to: 'AW-18389833589/qXp6CNz9lOMcEPWu-sBE',
+        transport_type: 'beacon',
+        event_callback: onDone,
       });
+      setTimeout(onDone, 800);
+    } else {
+      onDone();
     }
   };
 
@@ -43,7 +49,27 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll(selectors.join(', ')).forEach((el) => {
       if (el.dataset.conversionBound === 'true') return;
       el.dataset.conversionBound = 'true';
-      el.addEventListener('click', triggerGoogleAdsConversion);
+      el.addEventListener('click', (e) => {
+        const href = el.getAttribute('href') || '';
+        const isOutboundAction =
+          href.startsWith('tel:') ||
+          href.includes('wa.me/') ||
+          href.startsWith('http');
+
+        if (!isOutboundAction) {
+          triggerGoogleAdsConversion();
+          return;
+        }
+
+        e.preventDefault();
+        triggerGoogleAdsConversion(() => {
+          if (href.startsWith('http')) {
+            window.open(href, el.target === '_blank' ? '_blank' : '_self', 'noopener,noreferrer');
+          } else {
+            window.location.href = href;
+          }
+        });
+      });
     });
   };
 
@@ -353,10 +379,10 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.innerText = 'WhatsApp açılıyor...';
       submitBtn.style.pointerEvents = 'none';
       submitBtn.style.opacity = '0.7';
-      triggerGoogleAdsConversion();
-
       const waUrl = `https://wa.me/${getWhatsAppNumber()}?text=${encodeURIComponent(buildWhatsAppTeklifMessage(data))}`;
-      window.open(waUrl, '_blank', 'noopener,noreferrer');
+      triggerGoogleAdsConversion(() => {
+        window.open(waUrl, '_blank', 'noopener,noreferrer');
+      });
 
       setTimeout(() => {
         submitBtn.innerText = originalText;
