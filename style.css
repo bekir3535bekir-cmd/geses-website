@@ -2567,16 +2567,24 @@ body.lightbox-open {
 
   .floating-whatsapp {
     right: 12px;
-    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-    padding: 12px 14px;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    gap: 0;
+    justify-content: center;
   }
 
-  body.phone-dock-active .floating-whatsapp {
-    bottom: calc(90px + env(safe-area-inset-bottom, 0px));
+  .floating-whatsapp-text {
+    display: none;
+  }
+
+  .floating-whatsapp-icon {
+    font-size: 1.35rem;
   }
 
   body.phone-dock-active {
-    padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: 0;
   }
 
   .mobile-phone-dock .top-phone-icon,
@@ -3045,6 +3053,10 @@ body.lightbox-open {
   .form-whatsapp-hint {
     font-size: 0.78rem;
     padding: 0 4px;
+  }
+
+  .footer {
+    padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
   }
 
   .footer-inner {
