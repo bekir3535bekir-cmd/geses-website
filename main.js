@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
       '.hero-actions .btn-gold',
       '#phoneCard a',
       '#whatsappCard a',
+      '#floatingWhatsApp',
       '#mobilePhoneDock',
     ];
 

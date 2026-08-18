@@ -208,6 +208,8 @@
     }
     const waA = document.querySelector('#whatsappCard a');
     if (waA) waA.href = `https://wa.me/${wa.replace(/\D/g, '')}`;
+    const floatingWa = document.getElementById('floatingWhatsApp');
+    if (floatingWa) floatingWa.href = `https://wa.me/${wa.replace(/\D/g, '')}`;
 
     const locSpan = document.querySelector('#locationCard span');
     if (locSpan) locSpan.textContent = ct.serviceArea || locSpan.textContent;

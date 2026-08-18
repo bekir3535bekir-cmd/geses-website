@@ -316,6 +316,40 @@ section[id] {
   display: none;
 }
 
+.floating-whatsapp {
+  position: fixed;
+  right: 18px;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  z-index: 9994;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  background: #25d366;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+.floating-whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.32);
+  background: #1fba57;
+}
+
+.floating-whatsapp-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.floating-whatsapp-text {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .top-phone-link,
   .top-phone-number,
@@ -2529,6 +2563,16 @@ body.lightbox-open {
     transform: translate(-50%, 0);
     visibility: visible;
     pointer-events: auto;
+  }
+
+  .floating-whatsapp {
+    right: 12px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    padding: 12px 14px;
+  }
+
+  body.phone-dock-active .floating-whatsapp {
+    bottom: calc(90px + env(safe-area-inset-bottom, 0px));
   }
 
   body.phone-dock-active {
