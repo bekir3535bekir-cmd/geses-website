@@ -13,9 +13,7 @@ const PORT = Number(process.env.PORT) || 8765;
 const CONTENT_PATH = path.join(ROOT, 'data', 'content.json');
 const CONTENT_DEFAULT = path.join(ROOT, 'data', 'content.default.json');
 const UPLOADS_DIR = path.join(ROOT, 'assets', 'uploads');
-const AUTH_PATH = path.join(ROOT, 'data', 'cms-auth.json');
-
-const CMS_PASSWORD = process.env.CMS_PASSWORD || 'geses2025';
+const CMS_PASSWORD = process.env.CMS_PASSWORD;
 const sessions = new Map();
 
 function ensureContent() {
@@ -82,6 +80,9 @@ app.get('/api/content', (_req, res) => {
 });
 
 app.post('/api/login', (req, res) => {
+  if (!CMS_PASSWORD) {
+    return res.status(503).json({ error: 'Yönetim paneli için CMS_PASSWORD ayarlanmalı' });
+  }
   const { password } = req.body || {};
   if (password !== CMS_PASSWORD) {
     return res.status(401).json({ error: 'Şifre hatalı' });
@@ -136,11 +137,16 @@ app.delete('/api/upload/:name', authMiddleware, (req, res) => {
 });
 
 app.use('/admin', express.static(path.join(ROOT, 'admin')));
-app.use(express.static(ROOT));
+app.use('/assets', express.static(path.join(ROOT, 'assets')));
+for (const file of ['index.html', 'style.css', 'main.js', 'content.js', 'robots.txt', 'sitemap.xml']) {
+  app.get(file === 'index.html' ? '/' : `/${file}`, (_req, res) => {
+    res.sendFile(path.join(ROOT, file));
+  });
+}
 
 app.listen(PORT, '0.0.0.0', () => {
   ensureContent();
   console.log(`GESES site:  http://127.0.0.1:${PORT}`);
   console.log(`CMS panel:  http://127.0.0.1:${PORT}/admin`);
-  console.log(`Varsayılan CMS şifresi: ${CMS_PASSWORD} (CMS_PASSWORD ile değiştirin)`);
+  console.log(`CMS: ${CMS_PASSWORD ? 'etkin' : 'CMS_PASSWORD ayarlanana kadar giriş kapalı'}`);
 });
